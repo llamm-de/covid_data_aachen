@@ -113,7 +113,9 @@ if __name__ == '__main__':
     data = get_data_from_htmlTable(soup)
 
     # Update Database
-    update_database(data, 'data/test.db')
+    update_database(data, '../data/test.db')
 
-    
+    print('')
+
+
 
