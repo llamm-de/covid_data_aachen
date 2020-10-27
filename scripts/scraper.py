@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from datetime import date
+import sqlite3
 
 def get_today():
     # Get current date
@@ -71,11 +72,30 @@ def get_data_from_htmlTable(soup):
     return data
 
 
+def update_database(data, db):
+    # Update Database with scraped data
+    connection = sqlite3.connect(db)
+    cursor = connection.cursor()
+    
+    for key in data:
+        values = data[key]
+        try:
+            query = "INSERT INTO '{}' VALUES ('{}','{}','{}','{}','{}')".format(key, today, values['Total'], values['Active'], values['Incidence'], str(0))
+            cursor.execute(query)
+        except Exception as e:
+            print("Something went wrong while updating the database!")
+            print(e)
+            exit()
+    
+    connection.commit()
+    connection.close()
+    print("Database updated successfully!")
+
+
 # Run scraper
 if __name__ == '__main__':
     #Get today's date
     today = get_today()
-    today = "26.10.2020"
 
     # Make a request to Aachen.de
     r = make_request('http://aachen.de/DE/stadt_buerger/notfall_informationen/corona/aktuelles/index.html')
@@ -89,5 +109,11 @@ if __name__ == '__main__':
     else:
         print('Dates match!')
     
+    # Extract data from htmlTable
     data = get_data_from_htmlTable(soup)
-    print(data)
+
+    # Update Database
+    update_database(data, 'data/test.db')
+
+    
+
