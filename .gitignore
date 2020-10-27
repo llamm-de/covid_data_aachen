@@ -1,4 +1,3 @@
 test.db
-*.csv
 *.ipynb
 .ipynb_checkpoints/

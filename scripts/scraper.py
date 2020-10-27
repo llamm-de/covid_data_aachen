@@ -80,7 +80,7 @@ def update_database(data, db):
     for key in data:
         values = data[key]
         try:
-            query = "INSERT INTO '{}' VALUES ('{}','{}','{}','{}','{}')".format(key, today, values['Total'], values['Active'], values['Incidence'], str(0))
+            query = "INSERT INTO '{}' VALUES ('{}','{}','{}','{}','{}')".format(key, today, values['Total'], values['Active'], values['Incidence'], '')
             cursor.execute(query)
         except Exception as e:
             print("Something went wrong while updating the database!")
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     data = get_data_from_htmlTable(soup)
 
     # Update Database
-    update_database(data, '../data/test.db')
+    update_database(data, '../data/data.db')
 
     print('')
 
