@@ -5,6 +5,12 @@ This small repository contains the official data as published by the authorities
 
 Please note, that we do not take any responsibility for the correctness of the provided datasets. If you want to assure its correctness, please compare these datasets with the official data published by the authorities and the [Robert-Koch-Institute](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.html).
 
+## Data Formating
+The data is provided in various file formats. These are:
+- SQLite
+- CSV
+- JSON
+
 ## Contribution
 If you have anything to contribute (e.g. bug-reports etc.) to this little project, please feel free to open an issue or start a pull request.
 
