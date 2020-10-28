@@ -9,6 +9,8 @@ verify_ssl = true
 ipykernel = "*"
 beautifulsoup4 = "*"
 requests = "*"
+pandas = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.6"
