@@ -39,7 +39,7 @@ def match_date_string(soup, today):
     
     for heading in soup.findAll('h2'):
         match = re.search(r'\d{2,2}\.\s\w*', heading.text)
-        if match:
+        if (match and len(match.group().split()) > 1 ) :
             match = match.group()
             splt = match.split()
             date_string = splt[0] + month[splt[1]] + '.2020'
