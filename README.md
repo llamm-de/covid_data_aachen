@@ -19,4 +19,4 @@ If you have anything to contribute (e.g. bug-reports etc.) to this little projec
 All data contained in the ```data``` directory is licensed under the Open Database License. Please see the [LICENSE.md](data/LICENSE.md) file for further information.
 
 ### Web-Scraper & Notebooks
-The source code of the webscraper, the provided notebooks as well as all other source code are licensed under the MIT license. Please see the [LICENSE.md](scripts/LICENSE.md) file for further information.
+All source code provided in this project is licensed under the MIT license. Please see the [LICENSE.md](scripts/LICENSE.md) file for further information.
