@@ -1,4 +1,3 @@
 test.db
 scripts/logs/
-*.ipynb
 .ipynb_checkpoints/
