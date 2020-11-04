@@ -25,20 +25,20 @@ def make_request(url):
 def match_date_string(soup, today):
     # Find a date string in soup object and compare with current date
     month = {'Januar': '01',
-         'Februar': '02',
-         'März': '03',
-         'April': '04',
-         'Mai': '05',
-         'Juni': '06',
-         'Juli': '07',
-         'August': '08',
-         'September': '09',
-         'Oktober': '10',
-         'November': '11',
-         'Dezember': '12'}
+             'Februar': '02',
+             'März': '03',
+             'April': '04',
+             'Mai': '05',
+             'Juni': '06',
+             'Juli': '07',
+             'August': '08',
+             'September': '09',
+             'Oktober': '10',
+             'November': '11',
+             'Dezember': '12'}
     
     for heading in soup.findAll('h2'):
-        match = re.search(r'\d{2,2}\.\s\w*', heading.text)
+        match = re.search(r'\w*,\d{2,2}\.\s\w*,', heading.text)
         if (match and len(match.group().split()) > 1 ) :
             match = match.group()
             splt = match.split()
@@ -67,8 +67,7 @@ def get_data_from_htmlTable(soup):
     for index, tag in enumerate(table_data):
         if tag.text in data:
             data[tag.text] = {'Active': table_data[index+1].text,
-                              'Total': table_data[index+2].text,
-                              'Incidence': table_data[index+3].text}
+                              'Total': table_data[index+2].text}
     return data
 
 
@@ -80,7 +79,7 @@ def update_database(data, db):
     for key in data:
         values = data[key]
         try:
-            query = "INSERT INTO '{}' VALUES ('{}','{}','{}','{}','{}')".format(key, today, values['Total'], values['Active'], values['Incidence'], '')
+            query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(key, today, values['Total'], values['Active'])
             cursor.execute(query)
         except Exception as e:
             print("Something went wrong while updating the database!")
