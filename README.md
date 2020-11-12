@@ -13,6 +13,9 @@ The data is provided in various file formats. These are:
 - CSV
 - JSON
 
+## Evaluating the data
+You can find some pre-written jupyter notebooks for the evaluation of the provided data in the ```scripts``` directory. Although you the ```.csv``` and ```.json``` files should be up to date, you might want to alter the data within the sqlite database yourself. In this case you can use the ```export_data.py``` script to export the data from the sqlite database.
+
 ## Contribution
 If you have anything to contribute (e.g. bug-reports etc.) to this little project, please feel free to open an issue or start a pull request.
 
