@@ -2,6 +2,8 @@
 This small repository contains the official data as published by the authorities of the city and region of Aachen, Germany. They are continuesly scraped from the official [website of the City of Aachen](https://www.aachen.de/DE/stadt_buerger/notfall_informationen/corona/aktuelles/index.html). Furthermore the repository contains a small set of python scripts, bash scripts and python notebooks, which are used for scraping the desired data from the web and evaluating them.
 
 ![](./data/evaluations/sevendays.png)
+![](./data/evaluations/total_cases.png)
+![](./data/evaluations/active_cases.png)
 
 **Disclaimer**
 
