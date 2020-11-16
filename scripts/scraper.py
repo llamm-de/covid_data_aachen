@@ -36,10 +36,13 @@ def match_date_string(soup, today):
              'Oktober': '10',
              'November': '11',
              'Dezember': '12'}
-    
+
+    pattern = "\d{1,2}[.][ ](Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)"
+    regex = re.compile(pattern)
+
     for heading in soup.findAll('h2'):
-        match = re.search(r'\w*,\d{2,2}\.\s\w*,', heading.text)
-        if (match and len(match.group().split()) > 1 ) :
+        match = regex.search(heading.text)
+        if (match) :
             match = match.group()
             splt = match.split()
             date_string = splt[0] + month[splt[1]] + '.2020'
