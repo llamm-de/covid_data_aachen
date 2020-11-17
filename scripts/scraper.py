@@ -65,12 +65,15 @@ def get_data_from_htmlTable(soup):
             'Würselen':{},
             'noch nicht lokal zugeordnet':{}}
     
-    table_data = soup.table.findAll('p')
+    tr = soup.table.findAll('tr')
+    for tr_entry in tr:
+        td = tr_entry.findAll('td')
+        city_name = td[0].findAll('span')[0].text # City name
+
+        if city_name in data:
+            data[city_name] = {'Active': td[1].findAll('span')[0].text,
+                              'Total': td[2].findAll('span')[0].text}
     
-    for index, tag in enumerate(table_data):
-        if tag.text in data:
-            data[tag.text] = {'Active': table_data[index+1].text,
-                              'Total': table_data[index+2].text}
     return data
 
 
