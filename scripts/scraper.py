@@ -68,11 +68,11 @@ def get_data_from_htmlTable(soup):
     tr = soup.table.findAll('tr')
     for tr_entry in tr:
         td = tr_entry.findAll('td')
-        city_name = td[0].findAll('span')[0].text # City name
+        city_name = td[0].findAll('p')[0].text # City name
 
         if city_name in data:
-            data[city_name] = {'Active': td[1].findAll('span')[0].text,
-                              'Total': td[2].findAll('span')[0].text}
+            data[city_name] = {'Active': td[1].findAll('p')[0].text,
+                              'Total': td[2].findAll('p')[0].text}
     
     return data
 
