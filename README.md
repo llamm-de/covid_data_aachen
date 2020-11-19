@@ -4,6 +4,7 @@ This small repository contains the official data as published by the authorities
 ![](./data/evaluations/sevendays.png)
 ![](./data/evaluations/total_cases.png)
 ![](./data/evaluations/active_cases.png)
+![](./data/evaluations/relative_incidence.png)
 
 **Disclaimer**
 
