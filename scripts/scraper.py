@@ -65,14 +65,17 @@ def get_data_from_htmlTable(soup):
             'Würselen':{},
             'noch nicht lokal zugeordnet':{}}
     
-    tr = soup.table.findAll('tr')
-    for tr_entry in tr:
-        td = tr_entry.findAll('td')
-        city_name = td[0].findAll('p')[0].text # City name
-
-        if city_name in data:
-            data[city_name] = {'Active': td[1].findAll('p')[0].text,
-                              'Total': td[2].findAll('p')[0].text}
+    tbl = soup.findAll('table')
+    for table in tbl:
+        rows = table.findAll('tr')
+        for row in rows:
+            entries = row.findAll('td')
+            paragraph = entries[0].find('p')
+            if (paragraph is not None):
+                city_name = paragraph.text
+                if (city_name in data):
+                    data[city_name] = {'Active': entries[1].find('p').text,
+                                       'Total': entries[2].find('p').text}  
     
     return data
 
@@ -119,8 +122,6 @@ if __name__ == '__main__':
 
     # Update Database
     update_database(data, '../data/data.db')
-
-    print('')
 
 
 

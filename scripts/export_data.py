@@ -79,4 +79,4 @@ if __name__ == '__main__':
     with open(filename, 'w') as file:
         json.dump(json_data, file, indent=4)
 
-    print('Success!')
+    print('Successfully exported data from DB!')
