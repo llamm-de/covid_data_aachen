@@ -3,3 +3,4 @@ scripts/logs/
 .ipynb_checkpoints/
 *.zip
 geodata.ipynb
+scripts/twitter_credentials
