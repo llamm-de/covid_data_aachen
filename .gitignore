@@ -4,3 +4,4 @@ scripts/logs/
 *.zip
 geodata.ipynb
 scripts/twitter_credentials
+scripts/__pycache__/
