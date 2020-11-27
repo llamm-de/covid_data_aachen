@@ -2,6 +2,8 @@ import tweepy
 import json
 import re
 from datetime import date, datetime
+from scraper import scraper
+from export_data import export_data
 
 
 def connect_twitter_api(credential_file):
@@ -65,10 +67,17 @@ if __name__ == "__main__":
     matched_tweets = find_tweets_by_pattern(tweets, pattern)
     matched_tweets = find_tweets_by_date(matched_tweets, curr_date)
 
-    # Start scraping and evaluation when tweets match
+    if matched_tweets:
+        print('Found matching tweets! Start replying...')
+        # Start scraping and evaluation when tweets match
+        scraper()
+        export_data()
 
-    # Reply to tweet
-    # api.update_status(
-    #                 status="#InfoTweet",
-    #                 in_reply_to_status_id=tweets[0].id,
-    #             )
+        # Reply to tweet
+        # api.update_status(
+        #                 status="#InfoTweet",
+        #                 in_reply_to_status_id=tweets[0].id,
+        #             )
+        # API.update_with_media(filename[, status][, in_reply_to_status_id][, lat][, long][, source][, place_id][, file])
+    else:
+        print('No matching tweets found!')
