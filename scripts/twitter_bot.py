@@ -50,7 +50,7 @@ if __name__ == "__main__":
     api = connect_twitter_api(CREDFILE)    
     
     # Get tweets of PresseamtAachen
-    userID = 'PresseamtAachen'
+    userID = 'Mechaniac2'
     tweets = api.user_timeline(screen_name=userID, 
                            count=100,
                            include_rts = False,
@@ -65,4 +65,10 @@ if __name__ == "__main__":
     matched_tweets = find_tweets_by_pattern(tweets, pattern)
     matched_tweets = find_tweets_by_date(matched_tweets, curr_date)
 
-    print(matched_tweets)
+    # Start scraping and evaluation when tweets match
+
+    # Reply to tweet
+    # api.update_status(
+    #                 status="#InfoTweet",
+    #                 in_reply_to_status_id=tweets[0].id,
+    #             )
