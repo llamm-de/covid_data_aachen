@@ -81,7 +81,7 @@ def get_data_from_htmlTable(soup):
     return data
 
 
-def update_database(data, db):
+def update_database(data, db, date):
     # Update Database with scraped data
     connection = sqlite3.connect(db)
     cursor = connection.cursor()
@@ -89,7 +89,7 @@ def update_database(data, db):
     for key in data:
         values = data[key]
         try:
-            query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(key, today, values['Total'], values['Active'])
+            query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(key, date, values['Total'], values['Active'])
             cursor.execute(query)
         except Exception as e:
             print("Something went wrong while updating the database!")
@@ -101,8 +101,7 @@ def update_database(data, db):
     print("Database updated successfully!")
 
 
-# Run scraper
-if __name__ == '__main__':
+def scraper():
     #Get today's date
     today = get_today()
 
@@ -122,7 +121,7 @@ if __name__ == '__main__':
     data = get_data_from_htmlTable(soup)
 
     # Update Database
-    update_database(data, '../data/data.db')
+    update_database(data, '../data/data.db', today)
 
 
 

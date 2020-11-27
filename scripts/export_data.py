@@ -3,7 +3,7 @@ import csv
 import json
 
 # Run script
-if __name__ == '__main__':
+def export_data():
     locations = ('Aachen',
                  'Alsdorf',
                  'Baesweiler',
