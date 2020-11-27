@@ -18,6 +18,31 @@ def connect_twitter_api(credential_file):
 
     return api
 
+
+def find_tweets_by_pattern(tweets, pattern):
+    # Find tweets be predefined regEx pattern
+    matching_tweets = []
+    regex = re.compile(pattern)
+
+    for tweet in tweets:
+            match = regex.search(tweet.full_text)
+            if(match):
+                matching_tweets.append(tweet)
+
+    return matching_tweets
+
+
+def find_tweets_by_date(tweets, date):
+    # Find tweets postet on a certain date
+    matching_tweets = []
+
+    for tweet in tweets:
+        if (date == datetime.date(tweet.created_at)):
+            matching_tweets.append(tweet)
+
+    return matching_tweets
+
+
 if __name__ == "__main__":
 
     # Connect to API
@@ -37,12 +62,7 @@ if __name__ == "__main__":
     
     # Analyse tweets
     pattern = "(Corona-Virus|Fälle|Sieben-Tage-Inzidenz)"
-    regex = re.compile(pattern)
+    matched_tweets = find_tweets_by_pattern(tweets, pattern)
+    matched_tweets = find_tweets_by_date(matched_tweets, curr_date)
 
-    for tweet in tweets:
-        if (curr_date == datetime.date(tweet.created_at)):
-            print('Found tweet from today. Check for keywords in text...')
-            match = regex.search(tweet.full_text)
-            if(match):
-                print('Found covid related keywords in tweet!')
-                print(tweet.full_text)
+    print(matched_tweets)
