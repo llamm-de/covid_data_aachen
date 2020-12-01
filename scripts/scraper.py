@@ -37,7 +37,7 @@ def match_date_string(soup, today):
              'November': '11',
              'Dezember': '12'}
 
-    pattern = "\d{1,2}[.][ ](Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)"
+    pattern = "\d{1,2}[.][ ]?(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)"
     regex = re.compile(pattern)
 
     for div in soup.findAll("div", {"class": "content"}):
@@ -45,8 +45,10 @@ def match_date_string(soup, today):
             match = regex.search(par.text)
             if (match) :
                 match = match.group()
-                splt = match.split()
-                date_string = splt[0] + month[splt[1]] + '.2020'
+                splt = match.split('.')
+                if (len(splt[0]) == 1):
+                    splt[0] = '0'+splt[0]
+                date_string = splt[0] + '.' + month[splt[1]] + '.2020'
                 if (date_string == today):
                     return True
     return False            
