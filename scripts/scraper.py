@@ -85,12 +85,9 @@ def get_data_from_htmlTable(soup):
 
 
 def update_database(data, path, date):
-    db = dbControler(path, 'test_db')
-    db.connect()
-    db.update_db(data, date)
-    db.commit()
-    db.disconnect()
-
+    with dbController(path, 'test_db') as db:
+        db.update_db(data, date)
+        db.commit()
 
 def scraper():
     #Get today's date
