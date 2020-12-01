@@ -1,6 +1,7 @@
 import sqlite3
 import csv
 import json
+from dbController import dbController
 
 # Run script
 def export_data():
@@ -15,13 +16,12 @@ def export_data():
                  'Stolberg',
                  'Würselen')
 
-    connection = sqlite3.connect('../data/data.db')
-    cursor = connection.cursor()
+    db = dbController('../data/data.db', 'data_db')
+    db.connect()
 
     # Export case data for all locations
     for location in locations:
-        query = "SELECT * FROM {}".format(location)
-        data = cursor.execute(query).fetchall()
+        data = db.get_all_from_table(location)
 
         # Clean data from null entries
         for id, entry in enumerate(data):
@@ -54,8 +54,7 @@ def export_data():
             json.dump(json_data, file, indent=4)
 
     # Export Deaths data
-    query = "SELECT * FROM Deaths"
-    data = cursor.execute(query).fetchall()
+    data = db.get_all_from_table('Deaths')
     filename = '../data/csv/Deaths.csv'
     with open(filename, 'w') as file:
         writer = csv.writer(file)
@@ -80,3 +79,4 @@ def export_data():
         json.dump(json_data, file, indent=4)
 
     print('Successfully exported data from DB!')
+    db.disconnect()

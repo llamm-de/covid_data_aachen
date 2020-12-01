@@ -3,6 +3,7 @@ import requests
 import re
 from datetime import date
 import sqlite3
+from dbController import dbController
 
 def get_today():
     # Get current date
@@ -83,24 +84,12 @@ def get_data_from_htmlTable(soup):
     return data
 
 
-def update_database(data, db, date):
-    # Update Database with scraped data
-    connection = sqlite3.connect(db)
-    cursor = connection.cursor()
-    
-    for key in data:
-        values = data[key]
-        try:
-            query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(key, date, values['Total'], values['Active'])
-            cursor.execute(query)
-        except Exception as e:
-            print("Something went wrong while updating the database!")
-            print(e)
-            exit()
-    
-    connection.commit()
-    connection.close()
-    print("Database updated successfully!")
+def update_database(data, path, date):
+    db = dbControler(path, 'test_db')
+    db.connect()
+    db.update_db(data, date)
+    db.commit()
+    db.disconnect()
 
 
 def scraper():
