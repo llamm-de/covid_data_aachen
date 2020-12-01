@@ -8,6 +8,13 @@ class dbController():
         self.db_name = name
         self.is_connected = False
 
+    def __enter__(self):
+        self.connect()
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.disconnect()
+
     def connect(self):
         if not self.is_connected:
             self.connection = sqlite3.connect(self.db_path)
