@@ -6,7 +6,7 @@ from scraper import scraper
 from export_data import export_data
 
 
-class twitter_bot():
+class twitterBot():
     
     def __init__(self, credential_source):
         self.credential_source = credential_source
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     # Connect to API
     CREDFILE = "./twitter_credentials/twitter_credentials.json"
-    bot = twitter_bot(CREDFILE)  
+    bot = twitterBot(CREDFILE)  
     bot.connect_to_twitter()
     
     # Get tweets of PresseamtAachen
