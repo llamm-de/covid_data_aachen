@@ -76,38 +76,3 @@ class twitterBot():
                 matching_tweets.append(tweet)
 
         return matching_tweets
-
-
-if __name__ == "__main__":
-
-    # Connect to API
-    CREDFILE = "./twitter_credentials/twitter_credentials.json"
-    bot = twitterBot(CREDFILE)  
-    bot.connect_to_twitter()
-    
-    # Get tweets of PresseamtAachen
-    userID = 'Mechaniac2'
-    tweets = bot.get_user_timeline(userID)
-
-    # Get current date
-    curr_date = date.today()
-    
-    # Analyse tweets
-    pattern = "(Corona-Virus|Fälle|Sieben-Tage-Inzidenz)"
-    matched_tweets = bot.find_tweets_by_pattern(tweets, pattern)
-    matched_tweets = bot.find_tweets_by_date(matched_tweets, curr_date)
-
-    if matched_tweets:
-        print('Found matching tweets! Start replying...')
-        # Start scraping and evaluation when tweets match
-        scraper()
-        export_data()
-
-        # Reply to tweet
-        # api.update_status(
-        #                 status="#InfoTweet",
-        #                 in_reply_to_status_id=tweets[0].id,
-        #             )
-        # API.update_with_media(filename[, status][, in_reply_to_status_id][, lat][, long][, source][, place_id][, file])
-    else:
-        print('No matching tweets found!')
