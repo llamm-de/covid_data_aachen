@@ -3,6 +3,7 @@ import requests
 import re
 from datetime import date
 import sqlite3
+from dbController import dbController
 
 def get_today():
     # Get current date
@@ -37,7 +38,7 @@ def match_date_string(soup, today):
              'November': '11',
              'Dezember': '12'}
 
-    pattern = "\d{1,2}[.][ ](Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)"
+    pattern = "\d{1,2}[.][ ]?(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)"
     regex = re.compile(pattern)
 
     for div in soup.findAll("div", {"class": "content"}):
@@ -45,8 +46,10 @@ def match_date_string(soup, today):
             match = regex.search(par.text)
             if (match) :
                 match = match.group()
-                splt = match.split()
-                date_string = splt[0] + month[splt[1]] + '.2020'
+                splt = match.split('.')
+                if (len(splt[0]) == 1):
+                    splt[0] = '0'+splt[0]
+                date_string = splt[0] + '.' + month[splt[1]] + '.2020'
                 if (date_string == today):
                     return True
     return False            
@@ -81,28 +84,12 @@ def get_data_from_htmlTable(soup):
     return data
 
 
-def update_database(data, db):
-    # Update Database with scraped data
-    connection = sqlite3.connect(db)
-    cursor = connection.cursor()
-    
-    for key in data:
-        values = data[key]
-        try:
-            query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(key, today, values['Total'], values['Active'])
-            cursor.execute(query)
-        except Exception as e:
-            print("Something went wrong while updating the database!")
-            print(e)
-            exit()
-    
-    connection.commit()
-    connection.close()
-    print("Database updated successfully!")
+def update_database(data, path, date):
+    with dbController(path, 'test_db') as db:
+        db.update_db(data, date)
+        db.commit()
 
-
-# Run scraper
-if __name__ == '__main__':
+def scraper():
     #Get today's date
     today = get_today()
 
@@ -122,7 +109,7 @@ if __name__ == '__main__':
     data = get_data_from_htmlTable(soup)
 
     # Update Database
-    update_database(data, '../data/data.db')
+    update_database(data, '../data/data.db', today)
 
 
 
