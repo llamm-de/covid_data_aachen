@@ -2,5 +2,6 @@ test.db
 scripts/logs/
 .ipynb_checkpoints/
 *.zip
+*.tar.gz
 geodata.ipynb
 scripts/twitter_credentials
