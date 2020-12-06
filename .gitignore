@@ -7,4 +7,4 @@ scripts/logs/
 geodata.ipynb
 scripts/twitter_credentials
 scripts/__pycache__/
-.vscode/
+scripts/.vscode/
