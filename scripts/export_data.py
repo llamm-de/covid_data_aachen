@@ -1,23 +1,10 @@
 import sqlite3
 import csv
 import json
+from geojson import Feature, FeatureCollection
+import geopandas as gpd
 
-# Run script
-if __name__ == '__main__':
-    locations = ('Aachen',
-                 'Alsdorf',
-                 'Baesweiler',
-                 'Eschweiler',
-                 'Herzogenrath',
-                 'Monschau',
-                 'Roetgen',
-                 'Simmerath',
-                 'Stolberg',
-                 'Würselen')
-
-    connection = sqlite3.connect('../data/data.db')
-    cursor = connection.cursor()
-
+def export_csv_and_json(locations, cursor):
     # Export case data for all locations
     for location in locations:
         query = "SELECT * FROM {}".format(location)
@@ -78,5 +65,35 @@ if __name__ == '__main__':
     filename = '../data/json/Deaths.json'
     with open(filename, 'w') as file:
         json.dump(json_data, file, indent=4)
+
+
+# Export data for particular date using geojson format
+def export_geojson(locations, db_cursor):
+    shape_data = gpd.read_file('../data/geodata/geodata_ac_region.shp')
+    shape_data.at[0, 'GN'] = 'Stolberg'
+    
+    #shape_data.to_file('test.geojson', driver='GeoJSON')
+
+
+# Run script
+if __name__ == '__main__':
+    
+    locations = ('Aachen',
+                 'Alsdorf',
+                 'Baesweiler',
+                 'Eschweiler',
+                 'Herzogenrath',
+                 'Monschau',
+                 'Roetgen',
+                 'Simmerath',
+                 'Stolberg',
+                 'Würselen')
+
+    connection = sqlite3.connect('../data/data.db')
+    cursor = connection.cursor()
+
+    export_csv_and_json(locations, cursor)
+
+    #export_geojson(locations, cursor)
 
     print('Successfully exported data from DB!')
