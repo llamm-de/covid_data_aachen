@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from datetime import date
 import sqlite3
 from dbController import dbController
 
@@ -23,7 +22,7 @@ def make_request(url):
         return r
 
 
-def match_date_string(soup, today):
+def get_website_date(soup):
     # Find a date string in soup object and compare with current date
     month = {'Januar': '01',
              'Februar': '02',
@@ -49,10 +48,9 @@ def match_date_string(soup, today):
                 splt = match.split('.')
                 if (len(splt[0]) == 1):
                     splt[0] = '0'+splt[0]
-                date_string = splt[0] + '.' + month[splt[1]] + '.2020'
-                if (date_string == today):
-                    return True
-    return False            
+                date_string = splt[0] + '.' + month[splt[1].strip()] + '.2020'
+                return date_string
+                
 
 
 def get_data_from_htmlTable(soup):
@@ -90,9 +88,6 @@ def update_database(data, path, date):
         db.commit()
 
 def scraper():
-    #Get today's date
-    today = get_today()
-
     # Make a request to Aachen.de
     r = make_request('http://aachen.de/DE/stadt_buerger/notfall_informationen/corona/aktuelles/index.html')
 
@@ -100,16 +95,17 @@ def scraper():
     soup = BeautifulSoup(r.text, 'html.parser')
 
     # Check for right date of fetching
-    if (match_date_string(soup, today) is not True):
-        raise ValueError('Current Date is not equal to date from website!')
+    date_string = get_website_date(soup)
+    if (date_string is None):
+        raise ValueError('Could not find valid date entry on website!')
     else:
-        print('Dates match!')
+        print('Websites date is: {}'.format(date_string))
     
     # Extract data from htmlTable
     data = get_data_from_htmlTable(soup)
 
     # Update Database
-    update_database(data, '../data/data.db', today)
+    update_database(data, '../data/data.db', date_string)
 
 
 
