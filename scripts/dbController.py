@@ -65,8 +65,23 @@ class dbController():
     def add_by_key(self, table, key, data_entry):
         # Add data entry into table by key
         query = "INSERT INTO '{}' VALUES ('{}','{}','{}')".format(table, key, data_entry['Total'], data_entry['Active'])
-        self.cursor.execute(query)
+        self.cursor.execute(query)     
 
+    def get_all_from_table(self, table):
+        # Get all entries from table
+        query = "SELECT * FROM {}".format(table)
+        return self.cursor.execute(query).fetchall()
+
+    def get_from_table_by_key(self, table, key):
+        # Get entry from table by key
+        pass
+
+
+class covidDbController(dbController):
+    
+    def __init__(self, path, name):
+        super().__init__(path, name) 
+    
     def update_db(self, data, date):
         # Update database with new dataset
         for table in data:
@@ -80,13 +95,4 @@ class dbController():
                 except Exception as e:
                     print("Something went wrong while updating the database!")
                     print(e)
-                    exit()      
-
-    def get_all_from_table(self, table):
-        # Get all entries from table
-        query = "SELECT * FROM {}".format(table)
-        return self.cursor.execute(query).fetchall()
-
-    def get_from_table_by_key(self, table, key):
-        # Get entry from table by key
-        pass
+                    exit() 
