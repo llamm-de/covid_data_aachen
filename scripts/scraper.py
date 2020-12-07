@@ -4,14 +4,6 @@ import re
 import sqlite3
 from dbController import dbController
 
-def get_today():
-    # Get current date
-    today = date.today()
-    today = today.strftime("%d.%m.%Y")
-    print("Today's date: ", today)
-    return today
-
-
 def make_request(url):
     # Make request to site
     r = requests.get(url)
