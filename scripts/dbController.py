@@ -1,4 +1,5 @@
 import sqlite3
+import pandas as pd
 
 # Database controler
 class dbController():
@@ -96,3 +97,7 @@ class covidDbController(dbController):
                     print("Something went wrong while updating the database!")
                     print(e)
                     exit() 
+
+    def get_dataFrame_for_location(self, location):
+        raw_data = self.get_all_from_table(location)
+        return pd.dataFrame(raw_data)
