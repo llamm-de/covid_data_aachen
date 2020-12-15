@@ -8,3 +8,4 @@ geodata.ipynb
 scripts/twitter_credentials
 scripts/__pycache__/
 scripts/.vscode/
+data/test
