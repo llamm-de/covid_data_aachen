@@ -1,14 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from dbController import covidDbController
 from abc import ABC, abstractmethod
 
 class scraper(ABC):
 
-    def __init__(self, url, db_file):
+    def __init__(self, url):
         self.url = url
-        self.db_file = db_file
         self.request = None
         self.soup = None
 
@@ -31,10 +29,10 @@ class scraper(ABC):
 
 
 class covidScraper(scraper):
-    def __init__(self, url, db_file):
+    def __init__(self, url):
         self.displayed_date = None
         self.data = None
-        super().__init__(url, db_file)
+        super().__init__(url)
 
 
     def scrape(self):
@@ -42,7 +40,6 @@ class covidScraper(scraper):
         self.soupify()
         self.get_website_date()
         self.get_data_from_htmlTable()
-        self.update_database()
 
 
     def get_website_date(self):
@@ -108,11 +105,3 @@ class covidScraper(scraper):
                                         'Total': entries[2].find('p').text}  
         
         self.data = data
-
-    def update_database(self):
-        with covidDbController(self.db_file, 'scraper_db') as db:
-            db.update_db(self.data, self.displayed_date)
-            db.commit()
-
-
-
