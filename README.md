@@ -12,7 +12,7 @@ This small repository contains the official data as published by the authorities
 The data is provided as a SQLite database. You will find functionality to export the data from this database within the ```dbController``` class.
 
 ## Evaluating the data
-You can find some pre-written jupyter notebooks for the evaluation of the provided data in the ```scripts``` directory.
+You can find some pre-written jupyter notebooks for the evaluation of the provided data in the ```src/notebooks``` directory.
 
 ### Examples of evaluations
 ![](./data/evaluations/sevendays.png)
