@@ -1,6 +1,9 @@
 # COVID19 Data and Web-Scraper for Aachen (City & Region)
 This small repository contains the official data as published by the authorities of the city and region of Aachen, Germany. They are continuesly scraped from the official [website of the City of Aachen](https://www.aachen.de/DE/stadt_buerger/notfall_informationen/corona/aktuelles/index.html). Furthermore the repository contains a small set of python scripts, bash scripts and python notebooks, which are used for scraping the desired data from the web and evaluating them.
 
+## **UPDATE**
+**Finally the officials of the city of Aachen are publishing their data in json format. You can find the up to date data at the [OpenData Portal](https://offenedaten.aachen.de/dataset/aktuelle-lage-zum-corona-virus) of the city of Aachen.**
+
 **Disclaimer**
 
 **Please note, that we do not take any responsibility for the correctness of the provided datasets. If you want to assure its correctness, please compare these datasets with the official data published by the authorities and the [Robert-Koch-Institute](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.html).**
