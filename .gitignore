@@ -1,11 +1,11 @@
 test.db
-scripts/test.py
-scripts/logs/
+src/test.py
+src/logs/
 .ipynb_checkpoints/
 *.zip
 *.tar.gz
 geodata.ipynb
-scripts/twitter_credentials
-scripts/__pycache__/
-scripts/.vscode/
+src/twitter_credentials
+src/__pycache__/
+src/.vscode/
 data/test
