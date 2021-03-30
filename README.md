@@ -8,6 +8,9 @@ This small repository contains the official data as published by the authorities
 ## **UPDATE**
 **Finally the officials of the city of Aachen are publishing their data in json format. You can find the up to date data at the [OpenData Portal](https://offenedaten.aachen.de/dataset/aktuelle-lage-zum-corona-virus) of the city of Aachen. Starting 18th of December, the database will therefore not be updated any further.**
 
+## **UPDATE 2**
+If you want to see a really nice dashboard for the covid data, visit [oecher.info](https://oecher.info).
+
 ## Data Formating
 The data is provided as a SQLite database. You will find functionality to export the data from this database within the ```dbController``` class.
 
